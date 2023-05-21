@@ -14,23 +14,23 @@ function ShowApplications(prop) { // need postedjob id and a functioon to close 
     fetchAppl(prop.pjid);
   }), []);
   const isPopupOpen = true
-  async function handleDecision(index,event) {
-    const name=event.target.name;
-    let status="Pending"
-    const aid=Appls[index]._id
+  async function handleDecision(index, event) {
+    const name = event.target.name;
+    let status = "Pending"
+    const aid = Appls[index]._id
     console.log(aid);
-    if(name==="Accept"){
-       status="Accepted";
+    if (name === "Accept") {
+      status = "Accepted";
     }
-    else if(name==="Reject"){
-        status="Rejected"
+    else if (name === "Reject") {
+      status = "Rejected"
     }
-    const res=axios.post("http://localhost:3002/approve",{
-      aid:aid,
-      status:status
+    const res = axios.post("http://localhost:3002/approve", {
+      aid: aid,
+      status: status
     })
-    alert("The application has been "+status);
-  
+    alert("The application has been " + status);
+
 
   }
   return (
@@ -48,16 +48,16 @@ function ShowApplications(prop) { // need postedjob id and a functioon to close 
             </tr>
           </thead>
           <tbody>
-            {Appls.map((Appl,index)=>(
+            {Appls.map((Appl, index) => (
               <tr key={index}>
-              <td>{index+1}</td>
-              <td>{Appl.sid.fullName}</td>
-              <td>Eligible</td>
-              <td className="button-container">
-                <button className="button" name='Accept' onClick={(event)=>handleDecision(index,event)}>Accept</button>
-                <button className="button reject" name='Reject' onClick={(event)=>handleDecision(index,event)}>Reject</button>
-              </td>
-            </tr>
+                <td>{index + 1}</td>
+                <td>{Appl.sid.fullName}</td>
+                <td>Eligible</td>
+                <td className="button-container">
+                  <button className="button" name='Accept' onClick={(event) => handleDecision(index, event)}>Accept</button>
+                  <button className="button reject" name='Reject' onClick={(event) => handleDecision(index, event)}>Reject</button>
+                </td>
+              </tr>
             ))}
 
           </tbody>

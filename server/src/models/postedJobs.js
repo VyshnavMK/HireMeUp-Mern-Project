@@ -4,7 +4,9 @@ const postedJobsSchema = new mongoose.Schema({
     jmid:{type: mongoose.Schema.Types.ObjectId, ref: 'jobManagers',required:true},
     jid:{type: mongoose.Schema.Types.ObjectId, ref: 'jobs',required:true},
     isExpired:{type:Boolean, required:true, default:false },
-    title:{type:String}
+    title:{type:String},
+    date:{type:Date,required:true},
+    no_stud:{type:Number,required:true,default:0}
 
     
 },
