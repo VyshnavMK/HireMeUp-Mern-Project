@@ -2,8 +2,10 @@
 import { useState } from 'react';
 import '../../styles/StudentAuth.css';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'
 function StudentRegister(props) {
-    const [data, setData] = useState({ fullName:"",userName: "", passWord: "" });
+    const navigate = useNavigate();
+    const [data, setData] = useState({ fullName: "", userName: "", passWord: "", age: 0, eli_status: "SSLC", skills: ['None', 'None', 'None'] });
     function handleChange(event) {
         const { value, name } = event.target;
 
@@ -12,27 +14,162 @@ function StudentRegister(props) {
             [name]: value
         }));
     }
+    function handleSkillsSet(event) {
+        const { value, name } = event.target;
+        const updatedskills = [...data.skills]
+        const skillIndex = parseInt(name.replace("skill_", ""));
+        updatedskills[skillIndex] = value;
+        setData(prevData => ({
+            ...prevData,
+            skills: updatedskills
+        }));
+        // console.log("skill is"+data.skills)
+    }
     async function handleSubmit(event) {
         event.preventDefault();
         try {
             const response = await axios.post("http://localhost:3002/studentauth/register",
                 {
-                    fullName:data.fullName,
+                    fullName: data.fullName,
                     userName: data.userName,
-                    passWord: data.passWord
+                    passWord: data.passWord,
+                    age: data.age,
+                    eli_status: data.eli_status,
+                    skills: data.skills
                 });
-            if (response.data.message === "User registered successfully")
+            if (response.data.message === "User registered successfully"){
                 alert("Registration completed")
-            else {
-                alert("Username already exist")
+                navigate("/shome")
             }
+            else {
+                alert("email already regisetred ")
+            }
+            console.log(response)
         }
         catch (err) {
             console.log(err);
         }
+
     }
     return (
-        <div className='authCentreDiv'>
+        <>
+             <div className='authCentreDiv'>
+            <div className="about-section">
+                <h1>We Help To Get The Best Part-Time Job And Find A Talent</h1>
+                <br /><br />
+                <p>Unlock yout part-time potential and seize the opportunities with our online job portal.Connecting job seekers and employers seamlessly,we pave the way for flexible employment and mutually benifecial partnerships.</p>
+                <p>Embrace the power of conveniance and efficiency as you embark on your part-time journey with us.</p>
+            </div>
+
+                <div className="col-12 col-md-9 col-lg-7 col-xl-6 signup-section">
+                    <div className="card" style={{ "border-radius": "15px", 'border': 'none' }}>
+                        <div className="card-body p-5">
+                            <h2 className="text-uppercase text-center mb-5">Create an account</h2>
+
+                            <form onSubmit={handleSubmit}>
+
+                                <div className="form-outline mb-4">
+                                    <label className="form-label" htmlFor="form3Example1cg">Your Name</label>
+                                    <input type="text" id="form3Example1cg" className="form-control form-control-lg" name="fullName" value={data.fullName} onChange={handleChange} required />
+                                </div>
+
+                                <div className="form-outline mb-4">
+                                    <label className="form-label" htmlFor="form3Example3cg">Your Email</label>
+                                    <input type="email" id="form3Example3cg" className="form-control form-control-lg" name="userName" value={data.userName} onChange={handleChange} required />
+                                </div>
+
+                                <div className="form-outline mb-4">
+                                    <label className="form-label" htmlFor="form3Example4cg">Password</label>
+                                    <input type="password" id="form3Example4cg" className="form-control form-control-lg" name="passWord" value={data.passWord} onChange={handleChange} required />
+
+                                </div>
+
+                                <div className="form-outline mb-4">
+                                    <label className="form-label" htmlFor="form3Example4cdg">Repeat your password</label>
+                                    <input type="password" id="form3Example4cdg" className="form-control form-control-lg" />
+                                </div>
+
+                                <div className="form-outline mb-4">
+                                    <label className="form-label" htmlFor="age">Age</label>
+                                    <input type="number" id="age" className="form-control form-control-lg" inputmode="numeric" min="1" max="120" />
+                                </div>
+
+                                <div className="form-outline mb-4">
+                                    <label className="form-label" htmlFor="eligibility">Eligibility</label>
+                                    <select className="form-control form-control-lg" id="eligibility" name="eli_status" value={data.eli_status} onChange={handleChange} required>
+                                        <option value="sslc">SSLC</option>
+                                        <option value="plus_two">Plus Two</option>
+                                        <option value="p_undergraduate">Pursuing Undergraduate</option>
+                                        <option value="undergraduate">Undergraduate</option>
+                                        <option value="p_Postgraduate">Pursuing Postgraduate</option>
+                                        <option value="postgraduate">Postgraduate</option>
+                                    </select>
+                                </div>
+
+
+
+                                <label className="form-label" htmlFor="sande">Skills and experience</label>
+                                <div id="sande">
+                                    <div className="form-group mb-4">
+                                        <div className="row">
+                                            <div className="col">
+
+                                                <select className="form-control form-control-sm" id="skills1" name="skill_0" value={data.skills[0]} onChange={handleSkillsSet}>
+                                                    <option value="None">None</option>
+                                                    <option value="Sensible driver">Sensible driver</option>
+                                                    <option value="Computer experience">Computer experience</option>
+                                                    <option value="Content writer">Content writer</option>
+                                                </select>
+                                            </div>
+                                            <div className="col">
+
+                                                <select className="form-control form-control-sm" id="skills2" name="skill_1" value={data.skills[1]} onChange={handleSkillsSet}>
+                                                    <option value="None">None</option>
+                                                    <option value="Sensible driver">Sensible driver</option>
+                                                    <option value="Computer experience">Computer experience</option>
+                                                    <option value="Content writer">Content writer</option>
+                                                </select>
+                                            </div>
+                                            <div className="col">
+
+                                                <select className="form-control form-control-sm" id="skills3" name="skill_2" value={data.skills[2]} onChange={handleSkillsSet}>
+                                                    <option value="None">None</option>
+                                                    <option value="Sensible driver">Sensible driver</option>
+                                                    <option value="Computer experience">Computer experience</option>
+                                                    <option value="Content writer">Content writer</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div className="form-check d-flex justify-content-center mb-5">
+                                    <input className="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />
+                                    <label className="form-check-label" htmlFor="form2Example3g">
+                                        I agree to all statements in <a href="#!" className="text-body"><u>Terms of service</u></a>
+                                    </label>
+                                </div>
+
+                                <div className="d-flex justify-content-center">
+                                    <button type="button" className="btn btn-success btn-block btn-lg gradient-custom-4 text-body" type="Submit" >Register</button>
+                                </div>
+
+                                <p className="text-center text-muted mt-5 mb-0">Already have an account? <a className="fw-bold text-body" onClick={props.RegOrLog}><u>Login here</u></a></p>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            {/* <div className='authCentreDiv'>
             <div className="about-section">
                 <h2>Student authentication</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat, sapien nec eleifend aliquam, ex nibh lacinia justo, et volutpat lorem massa ac urna.</p>
@@ -62,7 +199,9 @@ function StudentRegister(props) {
                 </form>
             </div>
 
-        </div>
+        </div> */}
+        </>
+
     );
 }
 

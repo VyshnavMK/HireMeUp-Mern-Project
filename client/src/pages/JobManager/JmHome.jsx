@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import NavbarJm from '../../Components/JobManager/NavbarJm.jsx'
 import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
-import '../../styles/JmHome.css'
+import '../../styles/StudentHome.css'
 import Footer from '../../Components/Common/Footer.jsx';
 import GetUserId from '../../Components/Common/GetUserId.jsx';
 import { PostJobForm } from '../../Components/JobManager/PostJobForm.jsx';
@@ -10,7 +10,7 @@ import JMleft_section from '../../Components/JobManager/JMleft_section.jsx';
 import JMjobcards from '../../Components/JobManager/JMjobcards.jsx';
 import JMright_section from '../../Components/JobManager/JMright_section.jsx';
 import { ShowApplications } from '../../Components/JobManager/ShowApplications.jsx';
-
+import TopImage from '../../Components/Common/TopImage.jsx';
 
 function JmHome() {
     const navigate = useNavigate();
@@ -39,8 +39,8 @@ function JmHome() {
         <div>
             <NavbarJm openpopUp_nj={handlepopUp_nj} N_Home={true} N_Logout={true} N_NewJob
             ={true} />
+            <TopImage />
             <div className="main-content">
-                <JMleft_section />
                 <JMjobcards openpopUp_apl={handlepopUp_apl} />
                 <JMright_section />
             </div>

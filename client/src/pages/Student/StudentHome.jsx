@@ -9,6 +9,7 @@ import SHleft_section from '../../Components/Students/SHleft_section.jsx';
 import SHright_section from '../../Components/Students/SHright_section.jsx';
 import { S_Notifications } from '../../Components/Students/S_Notifications.jsx';
 import { S_AppliedJobs } from '../../Components/Students/S_AppliedJobs.jsx';
+import TopImage from '../../Components/Common/TopImage.jsx';
 function StudentHome() {
     const navigate = useNavigate();
     const [jobs, setJobs] = useState([])
@@ -33,8 +34,9 @@ function StudentHome() {
     return (
         <div>
             <Navbar toggle_noti={toggle_noti} toggle_Apjbs={toggle_Apjbs} N_Home={true} N_Logout={true} N_Noti={true} N_Apjbs={true}/>
+            <TopImage />
             <div className="main-content">
-                <SHleft_section />
+                {/* <SHleft_section /> */}
                 <SHjobcards />
                 <SHright_section />
             </div>

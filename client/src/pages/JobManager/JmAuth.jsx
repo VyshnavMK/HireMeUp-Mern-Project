@@ -11,7 +11,7 @@ function JmAuth() {
     }
     return (
         <div>
-            <NavbarJm N_ToS={true}  />
+            <NavbarJm N_ToS={true} style={{display:'flex'}} />
             <div className='twoforms'>
                 {isInReg?<JmRegister RegOrLog={RegOrLog} />:<JmLogin RegOrLog={RegOrLog}/>}
             </div>

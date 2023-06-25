@@ -26,16 +26,31 @@ function Navbar(prop) {
         navigate("/jmhome")
     }
     return (
-        <nav>
-            <div className="navDiv">
-                {NavElements.N_Home && <Link to="/shome">Home</Link> }
-                {NavElements.N_Logout && <button onClick={logout}>Logout</button> }
-                {NavElements.N_Noti && <button onClick={() => prop.toggle_noti()}>Notifications</button> }
-                {NavElements.N_Apjbs && <button onClick={() => prop.toggle_Apjbs()}>Applied Jobs</button> }
-                {NavElements.N_ToJM && <button className="button-17" onClick={ToJM}>Are you a Employer</button> }
-                
+
+
+        <nav className="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0" style={{display:'flex',flexGrow:1,height:'73px'}}>
+        <h1 className=" d-flex align-items-center text-center py-0 px-4 px-lg-5 m-0 text-primary">HIREMEUP</h1>
+        <div className="collapse navbar-collapse" id="navbarCollapse">
+            <div className="navbar-nav ms-auto p-4 p-lg-0">
+                {NavElements.N_Home && <Link to="/shome" className="nav-item nav-link">Home</Link> }
+                <a href="about.html" className="nav-item nav-link active">About</a>
+                <a href="contact.html" className="nav-item nav-link">Contact</a>
             </div>
+            {NavElements.N_ToJM && <a  className="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block" onClick={ToJM}>Post a Job<i className="fa fa-arrow-right ms-3"></i></a>}
+        </div>
         </nav>
+
+
+        // <nav>
+        //     <div className="navDiv">
+        //         {NavElements.N_Home && <Link to="/shome">Home</Link> }
+        //         {NavElements.N_Logout && <button onClick={logout}>Logout</button> }
+        //         {NavElements.N_Noti && <button onClick={() => prop.toggle_noti()}>Notifications</button> }
+        //         {NavElements.N_Apjbs && <button onClick={() => prop.toggle_Apjbs()}>Applied Jobs</button> }
+        //         {NavElements.N_ToJM && <button className="button-17" onClick={ToJM}>Are you a Employer</button> }
+                
+        //     </div>
+        // </nav>
 
     )
 }

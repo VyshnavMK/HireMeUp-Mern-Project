@@ -18,15 +18,15 @@
   }
   
   /* Style the left section */
-  .left-section {
+  /* .left-section {
     flex: 1;
     background-color: #f1f1f1;
     padding: 20px;
-  }
+  } */
   
   /* Style the center section */
   .center-section {
-    flex: 4;
+    flex: 9;
     padding: 20px;
   }
   
@@ -61,6 +61,7 @@
     flex: 2;
     padding: 20px;
     min-height: 450px;
+    max-width: 300px;
   }
   
   /* Style the ad space */

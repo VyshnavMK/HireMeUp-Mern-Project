@@ -61,8 +61,8 @@ nav ul li a:hover {
 }
 
 .about-section {
-  flex: 2;
-  padding: 20px;
+  flex: 4;
+  padding: 120px;
 }
 
 .about-section h2 {
@@ -70,8 +70,8 @@ nav ul li a:hover {
 }
 
 .signup-section {
-  flex: 1;
-  padding: 20px;
+  flex: 3;
+  padding: 0px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);

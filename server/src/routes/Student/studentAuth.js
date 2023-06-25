@@ -8,14 +8,14 @@ const router = express.Router();
 
 router.post("/register",async function(req,res){
     console.log(req.body);
-    const {fullName,userName,passWord}=req.body;
+    const {fullName,userName,passWord,age,eli_status,skills}=req.body;
     const student= await studentModel.findOne({userName});
 
     if(student){
         return res.json({message:"username already exist"});
     }
     const hashPassword= await bcrypt.hash(passWord,10);
-    const newStudent = new studentModel({fullName,userName,passWord:hashPassword});
+    const newStudent = new studentModel({fullName,userName,passWord:hashPassword,userName,age,eli_status,skills});
     console.log(newStudent)
     await newStudent.save();
     res.json({message:"User registered successfully"});

@@ -7,14 +7,14 @@ const router = express.Router();
 
 router.post("/register", async function (req, res) {
     console.log(req.body);
-    const { fullName,userName, passWord } = req.body;
+    const { fullName,userName, passWord,orgName } = req.body;
     const jm = await jobManagerModel.findOne({ userName: userName });
 
     if (jm) {
         return res.json({ message: "username already exist" });
     }
     const hashPassword = await bcrypt.hash(passWord, 10);
-    const newJm = new jobManagerModel({ fullName,userName, passWord: hashPassword });
+    const newJm = new jobManagerModel({ fullName,userName, passWord: hashPassword,orgName });
     await newJm.save();
     res.json({ message: "User registered successfully" });
 
