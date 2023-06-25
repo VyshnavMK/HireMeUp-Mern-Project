@@ -5,15 +5,15 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 function StudentRegister(props) {
     const navigate = useNavigate();
-    const [data, setData] = useState({ fullName: "", userName: "", passWord: "", age: 0, eli_status: "SSLC", skills: ['None', 'None', 'None'] });
+    const [data, setData] = useState({ fullName: "", userName: "", passWord: "", age: 18, eli_status: "SSLC", skills: ['None', 'None', 'None'] });
     function handleChange(event) {
         const { value, name } = event.target;
-
         setData(prevData => ({
-            ...prevData,
-            [name]: value
+          ...prevData,
+          [name]: name === "age" ? parseInt(value) : value
         }));
-    }
+      }
+      
     function handleSkillsSet(event) {
         const { value, name } = event.target;
         const updatedskills = [...data.skills]
@@ -55,14 +55,14 @@ function StudentRegister(props) {
         <>
              <div className='authCentreDiv'>
             <div className="about-section">
-                <h1>We Help To Get The Best Part-Time Job And Find A Talent</h1>
+                <h1>We Help To Get The Best Part-Time Job </h1>
                 <br /><br />
                 <p>Unlock yout part-time potential and seize the opportunities with our online job portal.Connecting job seekers and employers seamlessly,we pave the way for flexible employment and mutually benifecial partnerships.</p>
                 <p>Embrace the power of conveniance and efficiency as you embark on your part-time journey with us.</p>
             </div>
 
                 <div className="col-12 col-md-9 col-lg-7 col-xl-6 signup-section">
-                    <div className="card" style={{ "border-radius": "15px", 'border': 'none' }}>
+                    <div className="card" style={{ "borderRadius": "15px", 'border': 'none' }}>
                         <div className="card-body p-5">
                             <h2 className="text-uppercase text-center mb-5">Create an account</h2>
 
@@ -91,7 +91,8 @@ function StudentRegister(props) {
 
                                 <div className="form-outline mb-4">
                                     <label className="form-label" htmlFor="age">Age</label>
-                                    <input type="number" id="age" className="form-control form-control-lg" inputmode="numeric" min="1" max="120" />
+                                    <input type="number" id="age" name="age" className="form-control form-control-lg" inputMode="numeric" min="18" max="45" value={data.age} onChange={(event) => handleChange(event)} required/>
+
                                 </div>
 
                                 <div className="form-outline mb-4">
@@ -146,14 +147,14 @@ function StudentRegister(props) {
 
 
                                 <div className="form-check d-flex justify-content-center mb-5">
-                                    <input className="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />
+                                    <input className="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" required />
                                     <label className="form-check-label" htmlFor="form2Example3g">
-                                        I agree to all statements in <a href="#!" className="text-body"><u>Terms of service</u></a>
+                                        I agree to all statements in <a  className="text-body"><u>Terms of service</u></a>
                                     </label>
                                 </div>
 
                                 <div className="d-flex justify-content-center">
-                                    <button type="button" className="btn btn-success btn-block btn-lg gradient-custom-4 text-body" type="Submit" >Register</button>
+                                    <button  className="btn btn-success btn-block btn-lg gradient-custom-4 text-body" type="Submit" >Register</button>
                                 </div>
 
                                 <p className="text-center text-muted mt-5 mb-0">Already have an account? <a className="fw-bold text-body" onClick={props.RegOrLog}><u>Login here</u></a></p>

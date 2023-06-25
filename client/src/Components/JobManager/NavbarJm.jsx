@@ -26,6 +26,9 @@ function NavbarJm (prop){
     function ToS(){
         navigate("/shome")
     }
+    function ToPostJob(){
+        navigate("/JmPostJob")
+    }
     return(
 
         <nav className="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0" style={{display:'flex',flexGrow:1,height:'73px'}}>
@@ -34,13 +37,13 @@ function NavbarJm (prop){
             <div className="navbar-nav ms-auto p-4 p-lg-0">
                 {NavElements.N_Home && <Link to="/jmhome" className="nav-item nav-link">Home</Link> }
                 <a  className="nav-item nav-link active">About</a>
-                {NavElements.N_NewJob && <button style={{border:'none',background:'inherit'}} className=" nav-item nav-link " onClick={prop.openpopUp_nj}>Post a Job</button>
+                {NavElements.N_NewJob && <button style={{border:'none',background:'inherit'}} className=" nav-item nav-link " onClick={ToPostJob}>Post a Job</button>
                  }
                 
                 <a  className="nav-item nav-link">Contact</a>
             </div>
             {NavElements.N_Logout && <button  onClick={logout}className="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Logout<i className=""></i></button> }
-            {NavElements.N_ToS && <button  onClick={ToS}className="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Find a Job<i className=""></i></button> }
+            {NavElements.N_ToS && <button  onClick={ToS}className="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Find a Job<i className="fa fa-arrow-right ms-3"></i></button> }
             
         </div>
         </nav>

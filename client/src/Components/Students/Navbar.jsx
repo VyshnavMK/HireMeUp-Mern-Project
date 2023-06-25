@@ -36,6 +36,7 @@ function Navbar(prop) {
                 <a href="about.html" className="nav-item nav-link active">About</a>
                 <a href="contact.html" className="nav-item nav-link">Contact</a>
             </div>
+            {NavElements.N_Logout && <button  onClick={logout}className="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Logout<i className=""></i></button> }
             {NavElements.N_ToJM && <a  className="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block" onClick={ToJM}>Post a Job<i className="fa fa-arrow-right ms-3"></i></a>}
         </div>
         </nav>

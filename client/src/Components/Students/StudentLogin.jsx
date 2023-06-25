@@ -46,26 +46,26 @@ function StudentLogin(props) {
 
         <div className='authCentreDiv'>
             <div className="about-section">
-                <h1>We Help To Get The Best Part-Time Job And Find A Talent</h1>
+                <h1>We Help To Get The Best Part-Time Job </h1>
                 <br /><br />
                 <p>Unlock yout part-time potential and seize the opportunities with our online job portal.Connecting job seekers and employers seamlessly,we pave the way for flexible employment and mutually benifecial partnerships.</p>
                 <p>Embrace the power of conveniance and efficiency as you embark on your part-time journey with us.</p>
             </div>
 
             <div className="col-12 col-md-9 col-lg-7 col-xl-6 signup-section">
-                <div className="card" style={{ "border-radius": "15px", 'border': 'none' }}>
+                <div className="card" style={{ "borderRadius": "15px", 'border': 'none' }}>
                     <div className="card-body p-5">
                         <h2 className="text-uppercase text-center mb-5">Login</h2>
 
                         <form onSubmit={handleSubmit}>
 
                             <div className="form-outline mb-4">
-                                <label className="form-label" for="form3Example3cg">Your Email</label>
+                                <label className="form-label" htmlFor="form3Example3cg">Your Email</label>
                                 <input type="email" id="form3Example3cg" className="form-control form-control-lg" name="userName" value={data.userName} onChange={handleChange} required />
                             </div>
 
                             <div className="form-outline mb-4">
-                                <label className="form-label" for="form3Example4cg">Password</label>
+                                <label className="form-label" htmlFor="form3Example4cg">Password</label>
                                 <input type="password" id="form3Example4cg" className="form-control form-control-lg" name="passWord" value={data.passWord} onChange={handleChange} required/>
                             </div>
 
