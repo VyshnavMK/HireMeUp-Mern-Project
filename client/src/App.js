@@ -14,7 +14,7 @@ function App() {
           <Route path="/sauth" element={<StudentAuth />} />
           <Route path="/jmhome" element={<JmHome />} />
           <Route path="/jmauth" element={<JmAuth />} />
-          <Route path="/jmPostJob" element={<JmPostJob />} />
+          <Route path="/jmPostJob/:pj_id" element={<JmPostJob />} />
         </Routes>
       </Router>
     </div>

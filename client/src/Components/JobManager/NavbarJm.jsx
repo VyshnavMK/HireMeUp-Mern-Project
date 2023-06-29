@@ -27,7 +27,8 @@ function NavbarJm (prop){
         navigate("/shome")
     }
     function ToPostJob(){
-        navigate("/JmPostJob")
+        const pj_id="newjob"
+        navigate(`/JmPostJob/${pj_id}`)
     }
     return(
 

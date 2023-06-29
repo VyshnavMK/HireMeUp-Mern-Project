@@ -1,12 +1,33 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../../styles/PostJobForm.css'
 import GetUserId from '../Common/GetUserId';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
-function PostJobForm(prop) {
+function EditJobForm(prop) {
     const navigate = useNavigate();
+    
+    const [Data,setData]=useState({title:"",date:'',no_stud:0,invLink:'',jobLocation:"",wage:0,jobCat:"Others"})
+    useEffect(function () {
+        async function fetchJob() {
+            const job_response = await axios.get(`http://localhost:3002/EditJob?pj_id=${prop.pj_id}`);
+            console.log("the job info is :")
+            console.log(job_response.data.date);
+            setData({
+                title:job_response.data.title,
+                date:job_response.data.date.substring(0, 10),
+                no_stud:job_response.data.no_stud,
+                invLink:job_response.data.invLink,
+                jobLocation:job_response.data.jobLocation,
+                wage:job_response.data.wage,
+                jobCat:job_response.data.jobCat
+            });
+            // if (response.data.message !== "Server not connceted")
+            //     setJobs(response.data);
+        }
+        fetchJob();
+    }, []);
     const isPopupOpen = true
-    const [Data,setData]=useState({title:"",date:'',no_stud:0,invLink:'https://chat.whatsapp.com/G7YKd2NvktE5Z48mhxkoeI',jobLocation:"",wage:0,jobCat:"Others"})
+    
     const userId=GetUserId("jm_userId");
     function handleChange(event){
         const name=event.target.name;
@@ -21,8 +42,8 @@ function PostJobForm(prop) {
         event.preventDefault();
         console.log(Data);
         try{
-            const res=await axios.post("http://localhost:3002/newjob",{
-                jmid:userId,
+            const res=await axios.post("http://localhost:3002/EditJob",{
+                pjid:prop.pj_id,
                 title:Data.title,
                 date:Data.date,
                 no_stud:Data.no_stud,
@@ -35,7 +56,7 @@ function PostJobForm(prop) {
             console.log(res);
             // prop.openpopUp_nj();
             alert(res.data.message);
-            if(res.data.message==="saved new job successfully"){
+            if(res.data.message==="Job editted successfully"){
               navigate('/jmhome')
             }
 
@@ -153,4 +174,4 @@ function PostJobForm(prop) {
     )
 }
 
-export { PostJobForm };
+export { EditJobForm };

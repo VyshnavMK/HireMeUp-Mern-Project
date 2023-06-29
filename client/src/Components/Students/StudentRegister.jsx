@@ -154,7 +154,7 @@ function StudentRegister(props) {
                                 </div>
 
                                 <div className="d-flex justify-content-center">
-                                    <button  className="btn btn-success btn-block btn-lg gradient-custom-4 text-body" type="Submit" >Register</button>
+                                    <button  className="btn btn-outline-success" type="Submit" >Register</button>
                                 </div>
 
                                 <p className="text-center text-muted mt-5 mb-0">Already have an account? <a className="fw-bold text-body" onClick={props.RegOrLog}><u>Login here</u></a></p>

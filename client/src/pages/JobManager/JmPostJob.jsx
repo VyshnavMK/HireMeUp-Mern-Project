@@ -4,17 +4,14 @@ import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
 import '../../styles/StudentHome.css'
 import Footer from '../../Components/Common/Footer.jsx';
-import GetUserId from '../../Components/Common/GetUserId.jsx';
 import { PostJobForm } from '../../Components/JobManager/PostJobForm.jsx';
-import JMleft_section from '../../Components/JobManager/JMleft_section.jsx';
-import JMjobcards from '../../Components/JobManager/JMjobcards.jsx';
-import JMright_section from '../../Components/JobManager/JMright_section.jsx';
-import { ShowApplications } from '../../Components/JobManager/ShowApplications.jsx';
-import TopImage from '../../Components/Common/TopImage.jsx';
+import { useParams } from 'react-router-dom';
+import { EditJobForm } from '../../Components/JobManager/EditJobForm.jsx';
 
 function JmPostJob() {
     const navigate = useNavigate();
-    const [jobs, setJobs] = useState([])
+    const { pj_id } = useParams();
+    console.log("The value that passed to jmpostjob is"+pj_id)
     const [cookie, setCookie] = useCookies("access_token_jm");
     useEffect(function () {
         if (!cookie.access_token_jm) {
@@ -23,16 +20,8 @@ function JmPostJob() {
         }
     }, [])
     const [popUp_nj, setpopUp_nj] = useState(false);
-    const [popUp_apl, setpopUp_apl] = useState({ toggle: false, pjid: "645cd9471399ba7c481c6709" });
     function handlepopUp_nj() {
         setpopUp_nj(!popUp_nj);
-    }
-    function handlepopUp_apl(toggle,pjid) {
-        setpopUp_apl({toggle:toggle,pjid:pjid});
-    }
-
-    function refreshJobs(){
-
     }
 
     return (
@@ -41,7 +30,8 @@ function JmPostJob() {
             ={true} />
             
             <div className="main" style={{display:"flex",justifyContent:"center"}}>
-                <PostJobForm />
+                {pj_id==='newjob' ?<PostJobForm />:<EditJobForm pj_id={pj_id}/>}
+                
                 {/* <JMright_section /> */}
             </div>
             {/* {popUp_nj && <PostJobForm openpopUp_nj={handlepopUp_nj} refreshJobs={refreshJobs}/>}

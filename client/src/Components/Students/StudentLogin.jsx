@@ -71,7 +71,7 @@ function StudentLogin(props) {
 
 
                             <div className="d-flex justify-content-center">
-                                <button type="Submit" className="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Login</button>
+                                <button type="Submit" className="btn btn-outline-success">Login</button>
                             </div>
 
                             <p className="text-center text-muted mt-5 mb-0">Dont have an account yet? <a  className="fw-bold text-body"  onClick={props.RegOrLog}><u>Click here</u></a></p>

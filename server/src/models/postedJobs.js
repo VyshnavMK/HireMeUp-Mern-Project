@@ -6,7 +6,11 @@ const postedJobsSchema = new mongoose.Schema({
     isExpired:{type:Boolean, required:true, default:false },
     title:{type:String},
     date:{type:Date,required:true},
-    no_stud:{type:Number,required:true,default:0}
+    no_stud:{type:Number,required:true,default:0},
+    invLink:{type:String},
+    jobLocation:{type:String},
+    wage:{type:Number},
+    jobCat:{type:String}
 
     
 },

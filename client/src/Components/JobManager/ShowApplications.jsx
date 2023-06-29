@@ -25,14 +25,38 @@ function ShowApplications(prop) { // need postedjob id and a functioon to close 
     else if (name === "Reject") {
       status = "Rejected"
     }
+    else if(name==='Pending'){
+      status = "Pending"
+    }
     const res = axios.post("http://localhost:3002/approve", {
       aid: aid,
       status: status
     })
     alert("The application has been " + status);
-
-
+    fetchAppl(prop.pjid);
   }
+  function getEligibility(eli) {
+    if (eli === "sslc")
+      return "SSLC"
+    else if (eli === "plus_two")
+      return "PLUS TWO"
+    else if (eli === "p_undergraduate")
+      return "Pursuing UG"
+    else if (eli === "undergraduate")
+      return "UG"
+    else if (eli === "p_Postgraduate")
+      return "Pursuing PG"
+    else if (eli === "postgraduate")
+      return "PG"
+    else
+      return "Not Available"
+  }
+  function getSkills(skills) {
+    const filteredSkills = [...new Set(skills.filter(skill => skill !== "None"))];
+    console.log("The skills are" + filteredSkills.join(', '))
+    return filteredSkills.join(',');
+  }
+
   return (
 
     <div className={`popup-container ${isPopupOpen ? 'active' : ''}`}>
@@ -44,6 +68,7 @@ function ShowApplications(prop) { // need postedjob id and a functioon to close 
               <th>Sl. No.</th>
               <th>Student Name</th>
               <th>Eligibility</th>
+              <th>Skills</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -52,10 +77,26 @@ function ShowApplications(prop) { // need postedjob id and a functioon to close 
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>{Appl.sid.fullName}</td>
-                <td>Eligible</td>
+                <td>{getEligibility(Appl.sid.eli_status)}</td>
+                <td>{getSkills(Appl.sid.skills)}</td>
                 <td className="button-container">
-                  <button className="button" name='Accept' onClick={(event) => handleDecision(index, event)}>Accept</button>
-                  <button className="button reject" name='Reject' onClick={(event) => handleDecision(index, event)}>Reject</button>
+                  {Appl.status === "Pending" && <>
+                    <button className="button btn-sm" name='Accept' onClick={(event) => handleDecision(index, event)}>Accept</button>
+                    <button className="button reject btn-sm" name='Reject' onClick={(event) => handleDecision(index, event)}>Reject</button>
+                  </>
+                  }
+                  {Appl.status === "Accepted" && <>
+                    <button className="button btn-sm" name='Accept' >Accepted</button>
+                    <button className="button bg-warning btn-sm" name='Pending' onClick={(event) => handleDecision(index, event)}><i className="fa-solid fa-arrow-rotate-left fa-xl"></i></button>
+                    
+                  </>
+                  }
+                  {Appl.status === "Rejected" && <>
+                  <button className="button reject btn-sm" name='Reject' >Rejected</button>
+                    <button className="button bg-warning btn-sm" name='Pending' onClick={(event) => handleDecision(index, event)}><i className="fa-solid fa-arrow-rotate-left fa-xl"></i></button>
+                  </>
+                  }
+
                 </td>
               </tr>
             ))}
@@ -63,7 +104,7 @@ function ShowApplications(prop) { // need postedjob id and a functioon to close 
           </tbody>
 
         </table>
-        <button onClick={() => prop.openpopUp_apl(false, "645cd9471399ba7c481c6709")}>CANCEL</button>
+        <button className="btn btn-outline-danger mt-3" onClick={() => prop.openpopUp_apl(false, "645cd9471399ba7c481c6709")}>CANCEL</button>
       </div>
     </div>
   )
