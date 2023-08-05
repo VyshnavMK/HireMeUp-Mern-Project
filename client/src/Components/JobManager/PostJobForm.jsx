@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 function PostJobForm(prop) {
     const navigate = useNavigate();
     const isPopupOpen = true
-    const [Data,setData]=useState({title:"",date:'',no_stud:0,invLink:'https://chat.whatsapp.com/G7YKd2NvktE5Z48mhxkoeI',jobLocation:"",wage:0,jobCat:"Others"})
+    const [Data,setData]=useState({title:"",date:'',no_stud:0,invLink:'https://chat.whatsapp.com/G7YKd2NvktE5Z48mhxkoeI',district:"",city:"",wage:0,jobCat:"Others"})
     const userId=GetUserId("jm_userId");
     function handleChange(event){
         const name=event.target.name;
@@ -27,7 +27,8 @@ function PostJobForm(prop) {
                 date:Data.date,
                 no_stud:Data.no_stud,
                 invLink:Data.invLink,
-                jobLocation:Data.jobLocation,
+                district:Data.district,
+                city:Data.city,
                 wage:Data.wage,
                 jobCat:Data.jobCat
 
@@ -75,7 +76,46 @@ function PostJobForm(prop) {
 
           <div class="form-outline mb-4">
             <label class="form-label" for="form3Example6cg">Location</label>
-            <input type="text" id="form3Example6cg" class="form-control form-control-lg" name="jobLocation" value={Data.jobLocation} onChange={handleChange} required/>
+            <div style={{ display: "flex" }}>
+
+            <select
+                          className="form-control form-control-lg"
+                          id="form3Example6cg"
+                          name="district"
+                          value={Data.district}
+                          onChange={handleChange}
+                          required
+                          onInvalid={(e) =>
+                            e.target.setCustomValidity(
+                              "Please select a valid District"
+                            )
+                          }
+                          onInput={(e) => e.target.setCustomValidity("")}
+                          
+                        >
+                          <option value="" disabled>
+                            DISTRICT
+                          </option>
+                          <option value="Thiruvananthapuram">
+                            Thiruvananthapuram
+                          </option>
+                          <option value="Kollam">Kollam</option>
+                          <option value="Pathanamthitta">Pathanamthitta</option>
+                          <option value="Alappuzha">Alappuzha</option>
+                          <option value="Kottayam">Kottayam</option>
+                          <option value="Idukki ">Idukki </option>
+                          <option value="Ernakulam">Ernakulam</option>
+                          <option value="Thrissur">Thrissur</option>
+                          <option value="Palakkad">Palakkad</option>
+                          <option value="Malappuram">Malappuram</option>
+                          <option value="Kozhikkode">Kozhikkode</option>
+                          <option value="Wayanad">Wayanad</option>
+                          <option value="Kannur">Kannur</option>
+                          <option value="Kasargode">Kasargode</option>
+                        </select>
+              <input type="text" id="form3Example6cg_" class="form-control form-control-lg" name="city" placeholder='City' value={Data.city} onChange={handleChange} style={{ marginLeft: "25px" }} required/>
+            </div>
+            
           </div>
 
           <div class="form-outline mb-4">

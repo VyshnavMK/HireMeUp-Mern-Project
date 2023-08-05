@@ -74,7 +74,7 @@ function JMjobcards(prop) {
                                                     <div className="text-start ps-4">
                                                         <h5 className="mb-5">{job.title}</h5>
                                                         <div style={{ display: 'flex', maxHeight: '20px' }}>
-                                                            <span className="text-truncate me-3"><i className="fa fa-map-marker-alt text-primary me-2"></i>{job.jobLocation}</span>
+                                                            <span className="text-truncate me-3"><i className="fa fa-map-marker-alt text-primary me-2"></i>{job.city+","+job.district}</span>
                                                             <span className="text-truncate me-3"><i className="far fa-calendar-alt text-primary me-2"></i>{dateFormatter(job.date)}</span>
                                                             <span className="text-truncate me-3"><i className="far fa-money-bill-alt text-primary me-2"></i>₹{job.wage}/hr</span>
                                                             <span className="text-truncate me-0"><i className="fa-solid fa-person-circle-check text-primary"></i>{job.no_stud_applied}/{job.no_stud}</span>

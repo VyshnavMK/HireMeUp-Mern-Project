@@ -5,6 +5,7 @@ const studentSchema = new mongoose.Schema({
     userName:{type:String, required:true},
     passWord:{type:String, required:true },
     age:{type:Number},
+    district:{type:String, required:true },
     eli_status:{type:String },
     skills:{type:[String] }
 },

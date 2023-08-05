@@ -1,10 +1,12 @@
 import { useState } from "react";
+import getNearDistricts from "../Common/GetNearDistricts";
 
 function SearchBar(props) {
   const [searcher, setSearcher] = useState({
     keyword: "",
     category: "All",
     minwage: 100,
+    location: "",
     selection: 0,
   });
   function handleChange(event) {
@@ -14,7 +16,8 @@ function SearchBar(props) {
     if (name === "keyword") sel = 1;
     else if (name === "category") sel = 2;
     else if (name === "minwage") sel = 3;
-    else sel = 4;
+    else if (name === "location") sel = 4;
+    else sel = 5;
     setSearcher((prevData) => ({
       ...prevData,
       [name]: value,
@@ -58,6 +61,27 @@ function SearchBar(props) {
         props.setJobs(filteredJobs);
       };
       copyJobs(parseInt(searcher.minwage));
+    } else if (searcher.selection === 4) {
+      const copyJobs = (searchValue) => {
+        var nearDist = [];
+        nearDist = getNearDistricts(searchValue);
+
+        const districtIndexMap = new Map();
+        nearDist.forEach((district, index) => {
+          districtIndexMap.set(district, index);
+        });
+
+        const sortedJobs = props.alljobs.slice().sort((jobA, jobB) => {
+          const districtAIndex = districtIndexMap.get(jobA.district);
+          const districtBIndex = districtIndexMap.get(jobB.district);
+
+          return districtAIndex - districtBIndex;
+        });
+        console.log("The sorted jobs near you is")
+        console.log(sortedJobs);
+      };
+      copyJobs(searcher.location);
+      console.log();
     }
   }
 
@@ -68,78 +92,107 @@ function SearchBar(props) {
       style={{ padding: "35px" }}
     >
       <div className="container">
-        <div className="row g-2">
-          <div className="col-md-10">
-            <div className="row g-2">
-              <div className="col-md-4">
-                <label class="form-label" htmlFor="keyword">
-                  Enter keyword
-                </label>
-                <input
-                  type="text"
-                  className="form-control border-0"
-                  id="keyword"
-                  style={{ margin: "0px", maxHeight: "36px" }}
-                  name="keyword"
-                  value={searcher.keyword}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="col-md-4">
-                <label class="form-label" for="category">
-                  Category
-                </label>
-                <select
-                  className="form-select border-0"
-                  id="category"
-                  name="category"
-                  value={searcher.category}
-                  onChange={handleChange}
-                >
-                  <option selected>All</option>
-                  <option value="Catering">Catering</option>
-                  <option value="Customer Service">Customer Service</option>
-                  <option value="Data Entry">Data Entry</option>
-                  <option value="Content writing">Content writing</option>
-                  <option value="Delivery">Delivery</option>
-                  <option value="Teaching & Education3">
-                    Teaching & Education
-                  </option>
-                  <option value="Others">others</option>
-                </select>
-              </div>
-              <div className="col-md-4">
-                <label class="form-label" htmlFor="minwage">
-                  Minimum wage
-                </label>
-                <select
-                  className="form-select border-0"
-                  id="minwage"
-                  name="minwage"
-                  value={searcher.minwage}
-                  onChange={handleChange}
-                >
-                  <option value="100" selected>
-                    100
-                  </option>
-                  <option value="200">200</option>
-                  <option value="300">300</option>
-                </select>
-              </div>
+        <div className="col">
+          <div className="row ">
+            <div className="col-md-2">
+              <label class="form-label" htmlFor="keyword">
+                Enter keyword
+              </label>
+              <input
+                type="text"
+                className="form-control border-0"
+                id="keyword"
+                style={{ margin: "0px", maxHeight: "36px" }}
+                name="keyword"
+                value={searcher.keyword}
+                onChange={handleChange}
+              />
             </div>
-          </div>
-          <div className="col-md-2">
-            <label class="form-label" htmlFor="submit">
-              .
-            </label>
-            <button
-              className="btn btn-dark border-0 w-100"
-              id="submit"
-              type="button"
-              onClick={handleSubmit}
-            >
-              Search
-            </button>
+
+            <div className="col-md-2">
+              <label class="form-label" for="category">
+                Category
+              </label>
+              <select
+                className="form-select border-0"
+                id="category"
+                name="category"
+                value={searcher.category}
+                onChange={handleChange}
+              >
+                <option selected>All</option>
+                <option value="Catering">Catering</option>
+                <option value="Customer Service">Customer Service</option>
+                <option value="Data Entry">Data Entry</option>
+                <option value="Content writing">Content writing</option>
+                <option value="Delivery">Delivery</option>
+                <option value="Teaching & Education3">
+                  Teaching & Education
+                </option>
+                <option value="Others">others</option>
+              </select>
+            </div>
+
+            <div className="col-md-2">
+              <label class="form-label" htmlFor="minwage">
+                Minimum wage
+              </label>
+              <select
+                className="form-select border-0"
+                id="minwage"
+                name="minwage"
+                value={searcher.minwage}
+                onChange={handleChange}
+              >
+                <option value="100" selected>
+                  100
+                </option>
+                <option value="200">200</option>
+                <option value="300">300</option>
+              </select>
+            </div>
+
+            <div className="col-md-3 " style={{ marginLeft: "10px" }}>
+              <label class="form-label" htmlFor="location">
+                Location
+              </label>
+              <select
+                className="form-select border-0"
+                id="location"
+                name="location"
+                value={searcher.location}
+                onChange={handleChange}
+              >
+                <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                <option value="Kollam">Kollam</option>
+                <option value="Pathanamthitta">Pathanamthitta</option>
+                <option value="Alappuzha">Alappuzha</option>
+                <option value="Kottayam">Kottayam</option>
+                <option value="Idukki ">Idukki </option>
+                <option value="Ernakulam">Ernakulam</option>
+                <option value="Thrissur">Thrissur</option>
+                <option value="Palakkad">Palakkad</option>
+                <option value="Malappuram">Malappuram</option>
+                <option value="Kozhikkode">Kozhikkode</option>
+                <option value="Wayanad">Wayanad</option>
+                <option value="Kannur">Kannur</option>
+                <option value="Kasargode">Kasargode</option>
+              </select>
+            </div>
+
+            <div className="col-md-2">
+              <label class="form-label" htmlFor="submit">
+                .
+              </label>
+              <button
+                className="btn btn-dark border-0 w-100"
+                id="submit"
+                type="button"
+                onClick={handleSubmit}
+              >
+                Search
+              </button>
+            </div>
           </div>
         </div>
       </div>

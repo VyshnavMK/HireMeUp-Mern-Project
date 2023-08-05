@@ -8,7 +8,8 @@ const postedJobsSchema = new mongoose.Schema({
     date:{type:Date,required:true},
     no_stud:{type:Number,required:true,default:0},
     invLink:{type:String},
-    jobLocation:{type:String},
+    district:{type:String},
+    city:{type:String},
     wage:{type:Number},
     jobCat:{type:String}
 

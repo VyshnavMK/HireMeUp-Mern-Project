@@ -94,7 +94,7 @@ function SHjobcards() {
                           <div style={{ display: "flex", maxHeight: "20px" }}>
                             <span className="text-truncate me-3">
                               <i className="fa fa-map-marker-alt text-primary me-2"></i>
-                              {job.jobLocation}
+                              {job.city+","+job.district}
                             </span>
                             <span className="text-truncate me-3">
                               <i className="far fa-calendar-alt text-primary me-2"></i>
