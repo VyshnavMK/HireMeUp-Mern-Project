@@ -2,7 +2,6 @@ import {Link} from "react-router-dom";
 import {useCookies} from 'react-cookie';
 import { useEffect, useState } from "react";
 import {useNavigate} from 'react-router-dom'
-import '../../styles/Navbarjm.css'
 function NavbarJm (prop){
     const [Cookies,setCookies]=useCookies(["access_token_jm"]);
     const navigate=useNavigate();
@@ -37,7 +36,7 @@ function NavbarJm (prop){
         <div className="collapse navbar-collapse" id="navbarCollapse">
             <div className="navbar-nav ms-auto p-4 p-lg-0">
                 {NavElements.N_Home && <Link to="/jmhome" className="nav-item nav-link">Home</Link> }
-                <a  className="nav-item nav-link active">About</a>
+                <a  className="nav-item nav-link ">About</a>
                 {NavElements.N_NewJob && <button style={{border:'none',background:'inherit'}} className=" nav-item nav-link " onClick={ToPostJob}>Post a Job</button>
                  }
                 

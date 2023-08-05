@@ -1,0 +1,29 @@
+[33mcommit 18b89b5faea24be99ed235145c17417680663b63[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Vyshnav M K <vyshnav01pol@gmail.com>
+Date:   Thu Jun 29 23:49:13 2023 +0530
+
+    Notification and job approval configured. styling is almost done
+
+[33mcommit aaa63e56295e3ed5ec6f5a0433efe107a5513931[m
+Author: Vyshnav M K <vyshnav01pol@gmail.com>
+Date:   Mon Jun 26 01:02:59 2023 +0530
+
+    job managers post new job section configured
+
+[33mcommit e2cd94c3add7a00a018eb3c7a121a269964e243a[m
+Author: Vyshnav M K <vyshnav01pol@gmail.com>
+Date:   Sun Jun 25 12:40:37 2023 +0530
+
+    Login pages are almost styled and configured
+
+[33mcommit 98e0f97a2b29c3e75408db8d17b1b8a98a103dd6[m
+Author: Vyshnav M K <vyshnav01pol@gmail.com>
+Date:   Sun May 21 21:16:03 2023 +0530
+
+    Date and Number of students approved added to students jobcard
+
+[33mcommit 4f0acd91b3529a7cf0af153a0ab6d52255ad2750[m
+Author: Vyshnav M K <vyshnav01pol@gmail.com>
+Date:   Fri May 19 14:35:19 2023 +0530
+
+    First working version.Job manager can create jobs,see applicants,accept/reject them.Students can see jobs apply for them and see the notifications

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import '../../styles/JmAuth.css';
 import { JmRegister } from '../../Components/JobManager/JmRegister.jsx';
 import { JmLogin } from '../../Components/JobManager/JmLogin.jsx';
 import NavbarJm from '../../Components/JobManager/NavbarJm';

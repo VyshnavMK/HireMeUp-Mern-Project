@@ -1,6 +1,5 @@
 // import Navbar from "../Components/Navbar.jsx";
 import { useState } from 'react';
-import '../../styles/JmAuth.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 function JmRegister(props) {

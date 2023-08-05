@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
-import styles from '../../styles/Job_Card.module.css'
+import styles from '../../styles/Job_Card.css'
 import axios from 'axios';
 import GetUserId from '../Common/GetUserId';
 import moment from 'moment'
@@ -56,7 +56,7 @@ function JMjobcards(prop) {
         <>
 
 
-            <div className={styles.center_section}>
+            <div className="center_section">
                 <div className="container-xxl py-5">
                     <div className="container">
                         <h1 className="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">My jobs</h1>

@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from "react";
-import '../../styles/Navbar.css'
 function Navbar(prop) {
     const [Cookies, setCookies] = useCookies(["access_token_s"]);
     const navigate = useNavigate();

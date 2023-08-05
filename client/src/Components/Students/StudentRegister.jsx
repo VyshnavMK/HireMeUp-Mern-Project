@@ -106,6 +106,7 @@ function StudentRegister(props) {
                                         <option value="postgraduate">Postgraduate</option>
                                     </select>
                                 </div>
+                                
 
 
 
