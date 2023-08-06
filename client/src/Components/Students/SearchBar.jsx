@@ -63,9 +63,9 @@ function SearchBar(props) {
       copyJobs(parseInt(searcher.minwage));
     } else if (searcher.selection === 4) {
       const copyJobs = (searchValue) => {
-        var nearDist = [];
-        nearDist = getNearDistricts(searchValue);
-
+        
+         const nearDist = getNearDistricts(searchValue);
+        console.log(nearDist)
         const districtIndexMap = new Map();
         nearDist.forEach((district, index) => {
           districtIndexMap.set(district, index);
@@ -79,6 +79,7 @@ function SearchBar(props) {
         });
         console.log("The sorted jobs near you is")
         console.log(sortedJobs);
+        props.setJobs(sortedJobs);
       };
       copyJobs(searcher.location);
       console.log();
@@ -168,7 +169,7 @@ function SearchBar(props) {
                 <option value="Pathanamthitta">Pathanamthitta</option>
                 <option value="Alappuzha">Alappuzha</option>
                 <option value="Kottayam">Kottayam</option>
-                <option value="Idukki ">Idukki </option>
+                <option value="Idukki">Idukki </option>
                 <option value="Ernakulam">Ernakulam</option>
                 <option value="Thrissur">Thrissur</option>
                 <option value="Palakkad">Palakkad</option>

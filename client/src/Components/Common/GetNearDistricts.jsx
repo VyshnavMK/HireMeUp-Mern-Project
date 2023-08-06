@@ -9,13 +9,14 @@ const districtDistanceMap = [
   ["Thrissur", 250],
   ["Palakkad", 300],
   ["Malappuram", 350],
-  ["Kozhikode", 400],
+  ["Kozhikkode", 400],
   ["Wayanad", 450],
   ["Kannur", 500],
-  ["Kasaragod", 550],
+  ["Kasargode", 550],
 ];
 
 function getNearDistricts(districtName) {
+    console.log("The getNearDist has been called");
   const districtEntry = districtDistanceMap.find(
     (entry) => entry[0] === districtName
   );
@@ -32,6 +33,12 @@ function getNearDistricts(districtName) {
   // Extract only the district names from the sorted array
   const sortedDistricts = districtsWithDiff.map((item) => item.district);
   console.log(sortedDistricts);
+  if(sortedDistricts){
+    return sortedDistricts
+  }
+  else{
+    return []
+  }
 }
 
 
