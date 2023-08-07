@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import styles from "../../styles/Job_Card.css";
 import axios from "axios";
 import GetUserId from "../Common/GetUserId";
 import moment from "moment";
 import SearchBar from "./SearchBar";
 
-function SHjobcards() {
+function SHjobcards(props) {
   const [jobs, setJobs] = useState([]);
   const [alljobs, setAlljobs] = useState([]);
+  
   async function fetchJobs() {
     const response = await axios.get(
       `http://localhost:3002/studenthome?sid=${GetUserId("s_userId")}`
@@ -15,6 +15,9 @@ function SHjobcards() {
     console.log(response);
     setJobs(response.data);
     setAlljobs(response.data);
+
+
+    
   }
 
   useEffect(() => {
@@ -54,6 +57,7 @@ function SHjobcards() {
         alljobs={alljobs}
         setJobs={setJobs}
         setAlljobs={setAlljobs}
+        
       />
       <div className="container-xxl py-5">
         <div className="container">

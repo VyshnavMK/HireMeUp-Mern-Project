@@ -16,7 +16,7 @@ const districtDistanceMap = [
 ];
 
 function getNearDistricts(districtName) {
-    console.log("The getNearDist has been called");
+    console.log("The getNearDist has been called at "+districtName);
   const districtEntry = districtDistanceMap.find(
     (entry) => entry[0] === districtName
   );

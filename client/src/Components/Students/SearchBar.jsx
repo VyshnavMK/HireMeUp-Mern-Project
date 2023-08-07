@@ -1,27 +1,75 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import getNearDistricts from "../Common/GetNearDistricts";
-
+import GetUserId from "../../Components/Common/GetUserId";
+import axios from "axios";
 function SearchBar(props) {
+
   const [searcher, setSearcher] = useState({
     keyword: "",
     category: "All",
-    minwage: 100,
-    location: "",
+    minwage: 0,
+    location: "All",
     selection: 0,
   });
+
+  const [sorter, setSorter] = useState({
+    sort_option:"po"
+  });
+  let studentinfo;
+
+  function handleChangeSort(event) {
+    const name = event.target.name;
+    const value = event.target.value;
+    setSorter((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  }
+
+  useEffect(() => {
+    console.log('value in setsort is', sorter.sort_option);
+    sortJobs();
+  }, [sorter]);
+  
+  async function sortJobs(){
+    if(sorter.sort_option==="po"){
+      props.setJobs(props.alljobs);
+    }
+    else if(sorter.sort_option==="wg"){
+      const filteredJobs = [...props.alljobs];
+      filteredJobs.sort((a, b) => b.wage - a.wage);
+      props.setJobs(filteredJobs);
+    }
+    else{
+      await fetchSt_info();
+      
+      console.log("location is"+studentinfo)
+      const nearDist = getNearDistricts(studentinfo);
+        console.log(nearDist)
+        const districtIndexMap = new Map();
+        nearDist.forEach((district, index) => {
+          districtIndexMap.set(district, index);
+        });
+
+        const filteredJobs = props.alljobs.slice().sort((jobA, jobB) => {
+          const districtAIndex = districtIndexMap.get(jobA.district);
+          const districtBIndex = districtIndexMap.get(jobB.district);
+
+          return districtAIndex - districtBIndex;
+        });
+        props.setJobs(filteredJobs);
+
+    }
+
+  }
+
   function handleChange(event) {
     const name = event.target.name;
     const value = event.target.value;
-    var sel;
-    if (name === "keyword") sel = 1;
-    else if (name === "category") sel = 2;
-    else if (name === "minwage") sel = 3;
-    else if (name === "location") sel = 4;
-    else sel = 5;
     setSearcher((prevData) => ({
       ...prevData,
       [name]: value,
-      selection: sel,
+     
     }));
   }
   function handleSubmit(even) {
@@ -31,62 +79,129 @@ function SearchBar(props) {
     changeJobs();
   }
   function changeJobs() {
-    if (searcher.selection === 1) {
-      const copyJobs = (searchValue) => {
-        const filteredJobs = props.alljobs.filter((job) => {
-          const foundInJobCat = job.title.includes(searchValue);
-          const foundInOrgName =
-            job.jmid && job.jmid.orgName.includes(searchValue);
-          return foundInJobCat || foundInOrgName;
-        });
-        props.setJobs(filteredJobs);
-      };
-      copyJobs(searcher.keyword);
-    } else if (searcher.selection === 2) {
-      const copyJobs = (searchValue) => {
-        const filteredJobs = props.alljobs.filter((job) =>
-          job.jobCat.includes(searchValue)
+    let finalJobs=props.alljobs;
+    if(searcher.keyword !== ""){
+      const filteredJobs = finalJobs.filter((job) => {
+        const foundInJobCat = job.title.includes(searcher.keyword);
+        const foundInOrgName =
+          job.jmid && job.jmid.orgName.includes(searcher.keyword);
+        return foundInJobCat || foundInOrgName;
+      });
+      finalJobs=filteredJobs;
+    }
+
+    if(searcher.category!=="All"){
+      const filteredJobs = finalJobs.filter((job) =>
+          job.jobCat.includes(searcher.category)
         );
-        props.setJobs(filteredJobs);
-        if (searchValue === "All") {
-          props.setJobs(props.alljobs);
-        }
-      };
-      copyJobs(searcher.category);
-    } else if (searcher.selection === 3) {
-      const copyJobs = (searchValue) => {
-        const filteredJobs = props.alljobs.filter(
-          (job) => job.wage >= searchValue
-        );
-        props.setJobs(filteredJobs);
-      };
-      copyJobs(parseInt(searcher.minwage));
-    } else if (searcher.selection === 4) {
-      const copyJobs = (searchValue) => {
-        
-         const nearDist = getNearDistricts(searchValue);
+      finalJobs=filteredJobs;
+    }
+
+    if(searcher.minwage>0){
+      const searchValue=searcher.minwage;
+      const filteredJobs = finalJobs.filter(
+        (job) => job.wage >= searchValue
+      )
+      finalJobs=filteredJobs;
+    }
+  
+
+    if(searcher.location!=="All"){
+
+      const nearDist = getNearDistricts(searcher.location);
         console.log(nearDist)
         const districtIndexMap = new Map();
         nearDist.forEach((district, index) => {
           districtIndexMap.set(district, index);
         });
 
-        const sortedJobs = props.alljobs.slice().sort((jobA, jobB) => {
+        const sortedJobs = finalJobs.slice().sort((jobA, jobB) => {
           const districtAIndex = districtIndexMap.get(jobA.district);
           const districtBIndex = districtIndexMap.get(jobB.district);
 
           return districtAIndex - districtBIndex;
         });
-        console.log("The sorted jobs near you is")
-        console.log(sortedJobs);
-        props.setJobs(sortedJobs);
-      };
-      copyJobs(searcher.location);
-      console.log();
+
+        finalJobs=sortedJobs
+    }
+
+    props.setJobs(finalJobs);
+  }
+  async function fetchSt_info() {
+    try {
+      const response = await axios.get(
+        `http://localhost:3002/getstudentinfo?sid=${GetUserId("s_userId")}`
+      );
+      console.log("Details of student are");
+      console.log(response.data.district);
+      studentinfo=response.data.district
+      
+      
+    } catch (error) {
+      console.error("Error fetching student details:", error);
+      // Handle error if needed
     }
   }
 
+
+
+    // if (searcher.selection === 1) {
+    //   const copyJobs = (searchValue) => {
+    //     const filteredJobs = props.alljobs.filter((job) => {
+    //       const foundInJobCat = job.title.includes(searchValue);
+    //       const foundInOrgName =
+    //         job.jmid && job.jmid.orgName.includes(searchValue);
+    //       return foundInJobCat || foundInOrgName;
+    //     });
+    //     props.setJobs(filteredJobs);
+    //   };
+    //   copyJobs(searcher.keyword);
+    // } else if (searcher.selection === 2) {
+    //   const copyJobs = (searchValue) => {
+    //     const filteredJobs = props.alljobs.filter((job) =>
+    //       job.jobCat.includes(searchValue)
+    //     );
+    //     props.setJobs(filteredJobs);
+    //     if (searchValue === "All") {
+    //       props.setJobs(props.alljobs);
+    //     }
+    //   };
+    //   copyJobs(searcher.category);
+    // } else if (searcher.selection === 3) {
+    //   const copyJobs = (searchValue) => {
+    //     const filteredJobs = props.alljobs.filter(
+    //       (job) => job.wage >= searchValue
+    //     );
+    //     props.setJobs(filteredJobs);
+    //   };
+    //   copyJobs(parseInt(searcher.minwage));
+    // } else if (searcher.selection === 4) {
+    //   const copyJobs = (searchValue) => {
+        
+    //      const nearDist = getNearDistricts(searchValue);
+    //     console.log(nearDist)
+    //     const districtIndexMap = new Map();
+    //     nearDist.forEach((district, index) => {
+    //       districtIndexMap.set(district, index);
+    //     });
+
+    //     const sortedJobs = props.alljobs.slice().sort((jobA, jobB) => {
+    //       const districtAIndex = districtIndexMap.get(jobA.district);
+    //       const districtBIndex = districtIndexMap.get(jobB.district);
+
+    //       return districtAIndex - districtBIndex;
+    //     });
+    //     console.log("The sorted jobs near you is")
+    //     console.log(sortedJobs);
+    //     props.setJobs(sortedJobs);
+    //   };
+    //   copyJobs(searcher.location);
+    //   console.log();
+    // }
+  
+  
   return (
+    <div>
     <div
       className="container-fluid bg-primary mb-5 wow fadeIn"
       data-wow-delay="0.1s"
@@ -164,6 +279,7 @@ function SearchBar(props) {
                 value={searcher.location}
                 onChange={handleChange}
               >
+                <option value="All">All</option>
                 <option value="Thiruvananthapuram">Thiruvananthapuram</option>
                 <option value="Kollam">Kollam</option>
                 <option value="Pathanamthitta">Pathanamthitta</option>
@@ -198,7 +314,20 @@ function SearchBar(props) {
         </div>
       </div>
     </div>
-  );
-}
+    <div className="sortingDiv">
+    <i className="fa-solid fa-arrow-down-wide-short"></i>
+        <p>Sort by</p>
+        <select class="form-select " id="sortMenu" name="sort_option" aria-label="Default select example"  value={sorter.sort_option}
+                onChange={handleChangeSort}>
+          <option selected value="po">Posted order </option>
+          <option value="wg">Wage</option>
+          <option value="cty">Closer to you</option>
+          
+        </select>
+    </div>
+    </div>
 
+  );
+
+}
 export default SearchBar;

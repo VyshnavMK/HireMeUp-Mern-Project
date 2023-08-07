@@ -67,4 +67,18 @@
     margin-block-start: 5px;
     margin-block-end: 5px;
   }
-  
+  .sortingDiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+  }
+  #sortMenu {
+    appearance: none;
+    max-width: 200px;
+    background-color: inherit;
+    border: none;
+    text-align: left;
+    padding-left: 20px;
+    outline: none;
+  }

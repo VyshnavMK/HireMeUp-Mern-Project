@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 function EditJobForm(prop) {
     const navigate = useNavigate();
     
-    const [Data,setData]=useState({title:"",date:'',no_stud:0,invLink:'',jobLocation:"",wage:0,jobCat:"Others"})
+    const [Data,setData]=useState({title:"",date:'',no_stud:0,invLink:'',city:"",district:"",wage:0,jobCat:"Others"})
     useEffect(function () {
         async function fetchJob() {
             const job_response = await axios.get(`http://localhost:3002/EditJob?pj_id=${prop.pj_id}`);
@@ -17,7 +17,8 @@ function EditJobForm(prop) {
                 date:job_response.data.date.substring(0, 10),
                 no_stud:job_response.data.no_stud,
                 invLink:job_response.data.invLink,
-                jobLocation:job_response.data.jobLocation,
+                city:job_response.data.city,
+                district:job_response.data.district,
                 wage:job_response.data.wage,
                 jobCat:job_response.data.jobCat
             });
@@ -48,6 +49,8 @@ function EditJobForm(prop) {
                 date:Data.date,
                 no_stud:Data.no_stud,
                 invLink:Data.invLink,
+                city:Data.city,
+                district:Data.district,
                 jobLocation:Data.jobLocation,
                 wage:Data.wage,
                 jobCat:Data.jobCat
@@ -70,7 +73,7 @@ function EditJobForm(prop) {
       <div class="col-12 col-md-9 col-lg-7 col-xl-6" >
     <div class="card" style={{ "borderRadius": "15px", 'border': 'none' }}>
       <div class="card-body p-5" style={{display:"flex",justifyContent:"center",flexDirection:"column",margin:'0px',alignItems:"center"}}>
-        <h2 class="text-uppercase text-center mb-5">Post new Job</h2>
+        <h2 class="text-uppercase text-center mb-5">Edit Your Job</h2>
 
         <form onSubmit={handleSubmit} style={{display:"flex",justifyContent:"center",flexDirection:"column",margin:'0px'}}>
 
@@ -94,10 +97,56 @@ function EditJobForm(prop) {
             <input type="number" id="form3Example5cg" class="form-control form-control-lg" name="no_stud" value={Data.no_stud} onChange={handleChange} required/>
           </div>
 
+
+
           <div class="form-outline mb-4">
             <label class="form-label" for="form3Example6cg">Location</label>
-            <input type="text" id="form3Example6cg" class="form-control form-control-lg" name="jobLocation" value={Data.jobLocation} onChange={handleChange} required/>
+            <div style={{ display: "flex" }}>
+
+            <select
+                          className="form-control form-control-lg"
+                          id="form3Example6cg"
+                          name="district"
+                          value={Data.district}
+                          onChange={handleChange}
+                          required
+                          onInvalid={(e) =>
+                            e.target.setCustomValidity(
+                              "Please select a valid District"
+                            )
+                          }
+                          onInput={(e) => e.target.setCustomValidity("")}
+                          
+                        >
+                          <option value="" disabled>
+                            DISTRICT
+                          </option>
+                          <option value="Thiruvananthapuram">
+                            Thiruvananthapuram
+                          </option>
+                          <option value="Kollam">Kollam</option>
+                          <option value="Pathanamthitta">Pathanamthitta</option>
+                          <option value="Alappuzha">Alappuzha</option>
+                          <option value="Kottayam">Kottayam</option>
+                          <option value="Idukki ">Idukki </option>
+                          <option value="Ernakulam">Ernakulam</option>
+                          <option value="Thrissur">Thrissur</option>
+                          <option value="Palakkad">Palakkad</option>
+                          <option value="Malappuram">Malappuram</option>
+                          <option value="Kozhikkode">Kozhikkode</option>
+                          <option value="Wayanad">Wayanad</option>
+                          <option value="Kannur">Kannur</option>
+                          <option value="Kasargode">Kasargode</option>
+                        </select>
+              <input type="text" id="form3Example6cg_" class="form-control form-control-lg" name="city" placeholder='City' value={Data.city} onChange={handleChange} style={{ marginLeft: "25px" }} required/>
+            </div>
+            
           </div>
+
+
+
+
+          
 
           <div class="form-outline mb-4">
             <label class="form-label" for="form3Example7cg">Expected remuneration per hour</label>

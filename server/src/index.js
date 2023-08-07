@@ -13,6 +13,7 @@ import { getApplicationRouter } from './routes/JobManager/getApplications.js';
 import { getNotificationRouter } from './routes/Student/getNotifications.js';
 import { getAppliedJobsRouter } from './routes/Student/getAppliedJobs.js';
 import { EditJob } from './routes/JobManager/EditJob.js';
+import {getstudentinfoRouter} from  './routes/Student/getstudentinfo.js';
 
 const app = express();
 app.use(express.json()); //put everything coming to json format
@@ -35,6 +36,8 @@ app.use("/getnoti",getNotificationRouter)
 app.use("/getapldjbs",getAppliedJobsRouter)
 
 app.use("/EditJob",EditJob)
+
+app.use("/getstudentinfo", getstudentinfoRouter)
 
 // mongoose.connect("mongodb+srv://vyshnav:vyshnav123@ojp.1fc2g10.mongodb.net/ojpdb?retryWrites=true&w=majority",
 //     {

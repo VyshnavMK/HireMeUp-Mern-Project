@@ -9,17 +9,23 @@ import { S_Notifications } from '../../Components/Students/S_Notifications.jsx';
 import { S_AppliedJobs } from '../../Components/Students/S_AppliedJobs.jsx';
 import TopImage from '../../Components/Common/TopImage.jsx';
 import Right_section from '../../Components/Common/Right_section.jsx';
+
 function StudentHome() {
     const navigate = useNavigate();
     const [cookie, setCookie] = useCookies("access_token_s");
+    
     const[popUp_noti,setpopUp_noti]=useState(false);
     const[popUp_Apjbs,setpopUp_Apjbs]=useState(false);
-    useEffect(function () {
+    
+    
+    
+      useEffect(function () {
         if (!cookie.access_token_s) {
-            console.log("No cookie")
-            navigate("/sauth")
+          console.log("No cookie");
+          navigate("/sauth");
         }
-    }, [])
+        
+      }, []);
     function toggle_noti(){
         setpopUp_noti(!popUp_noti)
     }
