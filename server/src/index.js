@@ -14,7 +14,10 @@ import { getNotificationRouter } from './routes/Student/getNotifications.js';
 import { getAppliedJobsRouter } from './routes/Student/getAppliedJobs.js';
 import { EditJob } from './routes/JobManager/EditJob.js';
 import {getstudentinfoRouter} from  './routes/Student/getstudentinfo.js';
+import dotenv from 'dotenv'
 
+dotenv.config()
+console.log(process.env.PORT)
 const app = express();
 app.use(express.json()); //put everything coming to json format
 app.use(cors());        //Solve issue when making requests
@@ -44,7 +47,7 @@ app.use("/getstudentinfo", getstudentinfoRouter)
 //         useNewUrlParser: true,
 //         useUnifiedTopology: true
 //     });
-mongoose.connect("mongodb://127.0.0.1:27017/ojpdb1", {
+mongoose.connect(process.env.MONGO_LOCAL_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
