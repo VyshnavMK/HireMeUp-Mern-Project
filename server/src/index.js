@@ -42,11 +42,6 @@ app.use("/EditJob",EditJob)
 
 app.use("/getstudentinfo", getstudentinfoRouter)
 
-// mongoose.connect("mongodb+srv://vyshnav:vyshnav123@ojp.1fc2g10.mongodb.net/ojpdb?retryWrites=true&w=majority",
-//     {
-//         useNewUrlParser: true,
-//         useUnifiedTopology: true
-//     });
 mongoose.connect(process.env.MONGO_LOCAL_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true
