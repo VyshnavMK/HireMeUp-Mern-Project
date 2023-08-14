@@ -1,7 +1,4 @@
 import express from "express";
-import { jobManagerModel } from "../../models/jobManagers.js";
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import { postedJobsModel } from "../../models/postedJobs.js";
 import moment from "moment/moment.js";
 //use http://localhost:3002/Editjob

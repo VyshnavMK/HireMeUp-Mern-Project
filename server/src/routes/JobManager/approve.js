@@ -68,7 +68,7 @@ router.post("/", async function (req, res) {
             const s_emailid=student.userName;
             application.status = status;
             await application.save();
-            await sentMail(s_emailid,job_title,job_invLink,status)
+            //await sentMail(s_emailid,job_title,job_invLink,status)
             await notify(aid, status);
             return res.json({ message: "status saved  successfully" });
 

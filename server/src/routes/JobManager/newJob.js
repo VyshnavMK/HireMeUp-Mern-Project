@@ -1,7 +1,4 @@
 import express from "express";
-import { jobManagerModel } from "../../models/jobManagers.js";
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import { postedJobsModel } from "../../models/postedJobs.js";
 import moment from "moment/moment.js";
 //use http://localhost:3002/newjob
@@ -29,7 +26,7 @@ router.post("/", async function (req, res) { //
         jobCat
     });
     await newPostedJob.save();
-    console.log(newPostedJob + "saved new job");
+    //console.log("saved new job and job is",newPostedJob);
     res.json({ message: "saved new job successfully", job: newPostedJob });
 })
 

@@ -1,7 +1,4 @@
 import express from "express";
-import { studentModel } from "../../models/students.js";
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import { postedJobsModel } from "../../models/postedJobs.js";
 import { applicationsModel } from "../../models/applications.js";
 import { jobManagerModel } from "../../models/jobManagers.js";
@@ -31,10 +28,10 @@ router.get("/", async function (req, res) {
         for (let i = 0; i < response.length; i++) { //adding no of students applied and approved to the response
             const obj = response[i].toObject(); // Convert to plain JavaScript object
             obj.no_stud_applied = await getAppliedStudentsNumber(obj._id);
-            console.log("the student applied are " + obj.no_stud_applied);
+            //console.log("the student applied are " + obj.no_stud_applied);
             response[i] = obj;
         }
-        console.log(response);
+        //console.log(response);
         res.json(response);
     }
     catch (err) {

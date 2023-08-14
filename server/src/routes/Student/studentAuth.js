@@ -10,7 +10,7 @@ router.post("/register", async function (req, res) {
   console.log(req.body);
   const { fullName, userName, passWord, age, district, eli_status, skills } =
     req.body;
-  console.log("is it the district?" + district);
+  //console.log("is it the district?" + district);
   const student = await studentModel.findOne({ userName });
 
   if (student) {
@@ -27,13 +27,13 @@ router.post("/register", async function (req, res) {
     eli_status,
     skills,
   });
-  console.log(newStudent);
+  //console.log("The Data of new registered studenst is",newStudent);
   await newStudent.save();
   res.json({ message: "User registered successfully" });
 });
 
 router.post("/login", async function (req, res) {
-  console.log(req.body);
+  //console.log("The req recieved to login for Student is",req.body);
   const { userName, passWord } = req.body;
   const student = await studentModel.findOne({ userName });
   if (!student) {

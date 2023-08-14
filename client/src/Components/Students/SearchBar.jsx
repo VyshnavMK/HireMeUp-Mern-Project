@@ -211,7 +211,7 @@ function SearchBar(props) {
         <div className="col">
           <div className="row ">
             <div className="col-md-2">
-              <label class="form-label" htmlFor="keyword">
+              <label className="form-label" htmlFor="keyword">
                 Enter keyword
               </label>
               <input
@@ -226,7 +226,7 @@ function SearchBar(props) {
             </div>
 
             <div className="col-md-2">
-              <label class="form-label" for="category">
+              <label className="form-label" htmlFor="category">
                 Category
               </label>
               <select
@@ -234,9 +234,10 @@ function SearchBar(props) {
                 id="category"
                 name="category"
                 value={searcher.category}
+               
                 onChange={handleChange}
               >
-                <option selected>All</option>
+                <option value="All" >All</option>
                 <option value="Catering">Catering</option>
                 <option value="Customer Service">Customer Service</option>
                 <option value="Data Entry">Data Entry</option>
@@ -250,7 +251,7 @@ function SearchBar(props) {
             </div>
 
             <div className="col-md-2">
-              <label class="form-label" htmlFor="minwage">
+              <label className="form-label" htmlFor="minwage">
                 Minimum wage
               </label>
               <select
@@ -260,7 +261,7 @@ function SearchBar(props) {
                 value={searcher.minwage}
                 onChange={handleChange}
               >
-                <option value="100" selected>
+                <option value="100" >
                   100
                 </option>
                 <option value="200">200</option>
@@ -269,7 +270,7 @@ function SearchBar(props) {
             </div>
 
             <div className="col-md-3 " style={{ marginLeft: "10px" }}>
-              <label class="form-label" htmlFor="location">
+              <label className="form-label" htmlFor="location">
                 Location
               </label>
               <select
@@ -298,7 +299,7 @@ function SearchBar(props) {
             </div>
 
             <div className="col-md-2">
-              <label class="form-label" htmlFor="submit">
+              <label className="form-label" htmlFor="submit">
                 .
               </label>
               <button
@@ -317,9 +318,9 @@ function SearchBar(props) {
     <div className="sortingDiv">
     <i className="fa-solid fa-arrow-down-wide-short"></i>
         <p>Sort by</p>
-        <select class="form-select " id="sortMenu" name="sort_option" aria-label="Default select example"  value={sorter.sort_option}
+        <select className="form-select " id="sortMenu" name="sort_option" aria-label="Default select example"  value={sorter.sort_option}
                 onChange={handleChangeSort}>
-          <option selected value="po">Posted order </option>
+          <option value="po">Posted order </option>
           <option value="wg">Wage</option>
           <option value="cty">Closer to you</option>
           

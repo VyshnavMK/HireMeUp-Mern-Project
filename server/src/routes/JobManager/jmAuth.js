@@ -21,7 +21,7 @@ router.post("/register", async function (req, res) {
 })
 
 router.post("/login", async function (req, res) {
-    console.log(req.body);
+    //console.log("Req recieved when try to login is",req.body);
     const { userName, passWord } = req.body;
     const jm = await jobManagerModel.findOne({ userName });
     if (!jm) {

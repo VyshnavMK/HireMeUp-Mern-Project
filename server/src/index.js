@@ -14,6 +14,7 @@ import { getNotificationRouter } from './routes/Student/getNotifications.js';
 import { getAppliedJobsRouter } from './routes/Student/getAppliedJobs.js';
 import { EditJob } from './routes/JobManager/EditJob.js';
 import {getstudentinfoRouter} from  './routes/Student/getstudentinfo.js';
+import { saveJobRouter } from './routes/Student/saveJob.js';
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -41,6 +42,12 @@ app.use("/getapldjbs",getAppliedJobsRouter)
 app.use("/EditJob",EditJob)
 
 app.use("/getstudentinfo", getstudentinfoRouter)
+
+app.use("/savejob",saveJobRouter)
+
+
+
+
 
 mongoose.connect(process.env.MONGO_LOCAL_URL, {
   useNewUrlParser: true,

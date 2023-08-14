@@ -6,7 +6,7 @@ import { studentNotificationModel } from "../../models/studentnotification.js";
 const router = express.Router();
 
 router.post("/",async function(req,res){
-    console.log(req.body);
+    //console.log("The req recieved to job Applications",req.body);
     const {pjid,sid,action}=req.body; //action can be register or cancel
     
     if(action === 'register'){
@@ -32,8 +32,7 @@ router.post("/",async function(req,res){
         }
        await applicationsModel.deleteOne({pjid:pjid,sid:sid});
 
-        console.log("The application that has been canceld is")
-        console.log(application)
+        //console.log("The application that has been canceld is",application)
         return res.json({message:"Registration has been canceled"});
     }
     

@@ -33,6 +33,7 @@ function Navbar(prop) {
             <div className="navbar-nav ms-auto p-4 p-lg-0">
                 {NavElements.N_Home && <Link to="/shome" className="nav-item nav-link">Home</Link> }
                 <Link to=""  className="nav-item nav-link ">About</Link>
+                <Link to="/sdashb"  className="nav-item nav-link ">DashBoard</Link>
                 <Link to=""  className="nav-item nav-link" >Contact</Link>
                 {NavElements.N_Noti && <Link to="" className="nav-item nav-link" onClick={() => prop.toggle_noti()}>Notifications</Link> }
             </div>

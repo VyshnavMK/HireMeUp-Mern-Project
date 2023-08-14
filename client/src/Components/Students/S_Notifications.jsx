@@ -44,8 +44,12 @@ function S_Notifications(prop) {
       const response = await axios.get(
         `http://localhost:3002/getnoti?sid=${sid}`
       );
-      console.log(response);
+      if(response.data){
+        console.log("The data in response is",response);
       setNotis(response.data);
+      }
+      
+      
     }
     fetchNotis();
   }, []);

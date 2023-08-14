@@ -84,7 +84,7 @@ function JMjobcards(prop) {
                                                 </div>
                                                 <div className="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
                                                     <div className="d-flex mb-3">
-                                                        <button className="btn btn-light btn-square me-3"  ><i class="fa-regular fa-pen-to-square" onClick={function () { EditJob(job._id) }}></i></button>
+                                                        <button className="btn btn-light btn-square me-3"  ><i className="fa-regular fa-pen-to-square" onClick={function () { EditJob(job._id) }}></i></button>
                                                         <button className="btn btn-primary" onClick={function () {
                                                             handleShowApplicaions(index);
                                                         }}>See Applications</button>
