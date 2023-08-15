@@ -32,4 +32,16 @@ router.post("/remove", async function (req, res) {
 
 });
 
+router.get("/get",async function(req,res){
+    const { sid } = req.query;
+    console.log("The sid recived in savejob",sid)
+    const student=await studentModel.findById(sid);
+    if(student){
+        res.json(student)
+    }
+    else{
+        res.json({message:"No such student"})
+    }
+})
+
 export { router as saveJobRouter };

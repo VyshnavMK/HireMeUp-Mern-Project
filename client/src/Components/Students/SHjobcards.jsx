@@ -7,7 +7,8 @@ import SearchBar from "./SearchBar";
 function SHjobcards(props) {
   const [jobs, setJobs] = useState([]);
   const [alljobs, setAlljobs] = useState([]);
-  
+  const [SavedJobsArray,setSavedJobsArray]=useState([])
+
   async function fetchJobs() {
     const response = await axios.get(
       `http://localhost:3002/studenthome?sid=${GetUserId("s_userId")}`
@@ -15,13 +16,26 @@ function SHjobcards(props) {
     console.log(response);
     setJobs(response.data);
     setAlljobs(response.data);
-
-
     
   }
 
-  useEffect(() => {
-    fetchJobs();
+  async function fetchSavedJobs() {
+    const sid=GetUserId("s_userId");
+    console.log("SID of student in jobcard",sid)
+    const response = await axios.get(
+      `http://localhost:3002/savejob/get?sid=${sid}`
+    );
+    sessionStorage.setItem("SavedJobs",JSON.stringify(response.data.savedJobs))
+    console.log("data from saved jobs is",JSON.stringify(response.data.savedJobs));
+    
+    
+  }
+
+  useEffect( () => {
+     fetchJobs();
+     const SJobArray = JSON.parse(sessionStorage.getItem('SavedJobs'));
+       setSavedJobsArray(SJobArray)
+     
   }, []);
 
   async function handleJobRegister(index) {
@@ -50,6 +64,33 @@ function SHjobcards(props) {
     else if (jobCat === "Teaching & Education") return "/images/img_tne.png";
     else return "/images/img_oth.png";
   }
+
+  function isSavedJob (pjid){
+    if(SavedJobsArray.includes(pjid)){
+      return true
+    }
+    else{
+      return false
+    }
+  }
+  async function handleJobSaving(pjid,action){
+    
+      await axios.post(`http://localhost:3002/savejob/${action}`, {
+      sid: GetUserId("s_userId"),
+      pjid: pjid,
+    }).then(()=>{
+      fetchSavedJobs().then(()=>{
+        const SJobArray = JSON.parse(sessionStorage.getItem('SavedJobs'));
+       setSavedJobsArray(SJobArray)
+       fetchJobs();
+       })
+    });
+    
+    setJobs([]);
+      fetchJobs();
+     const SJobArray = JSON.parse(sessionStorage.getItem('SavedJobs'));
+     setSavedJobsArray(SJobArray)
+  } 
   return (
     <div className="center_section">
       <SearchBar
@@ -57,7 +98,6 @@ function SHjobcards(props) {
         alljobs={alljobs}
         setJobs={setJobs}
         setAlljobs={setAlljobs}
-        
       />
       <div className="container-xxl py-5">
         <div className="container">
@@ -98,7 +138,7 @@ function SHjobcards(props) {
                           <div style={{ display: "flex", maxHeight: "20px" }}>
                             <span className="text-truncate me-3">
                               <i className="fa fa-map-marker-alt text-primary me-2"></i>
-                              {job.city+","+job.district}
+                              {job.city + "," + job.district}
                             </span>
                             <span className="text-truncate me-3">
                               <i className="far fa-calendar-alt text-primary me-2"></i>
@@ -117,12 +157,28 @@ function SHjobcards(props) {
                       </div>
                       <div className="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
                         <div className="d-flex mb-3">
-                          <button
+                          
+
+                            
+
+
+                            {isSavedJob(job._id)?<button
                             className="btn btn-light btn-square me-3"
-                            href=""
-                          >
-                            <i className="far fa-heart text-primary"></i>
-                          </button>
+                            onClick={function () {
+                              handleJobSaving(job._id,"remove");
+                            }}
+                            
+                          ><i className="far fa-heart fa-solid text-primary"></i>
+                            </button>:<button
+                            className="btn btn-light btn-square me-3"
+                            onClick={function () {
+                              handleJobSaving(job._id,"add");
+                            }}
+                            
+                          ><i className="far fa-heart  text-primary"></i>
+                            </button>}
+                            
+                          
                           <button
                             className="btn btn-primary"
                             onClick={function () {

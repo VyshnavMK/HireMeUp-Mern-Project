@@ -34,6 +34,7 @@ function StudentLogin(props) {
                 alert("You have been logined")
                 setCookies("access_token_s", response.data.token);
                 window.localStorage.setItem("s_userId", response.data.userId);
+                window.sessionStorage.setItem("SavedJobs",JSON.stringify(response.data.savedJobs))
             }
 
         }

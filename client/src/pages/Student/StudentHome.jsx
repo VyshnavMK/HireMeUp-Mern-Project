@@ -9,6 +9,8 @@ import { S_Notifications } from '../../Components/Students/S_Notifications.jsx';
 import { S_AppliedJobs } from '../../Components/Students/S_AppliedJobs.jsx';
 import TopImage from '../../Components/Common/TopImage.jsx';
 import Right_section from '../../Components/Common/Right_section.jsx';
+import axios from "axios";
+import GetUserId from "../../Components/Common/GetUserId";
 
 function StudentHome() {
     const navigate = useNavigate();
@@ -17,6 +19,18 @@ function StudentHome() {
     const[popUp_noti,setpopUp_noti]=useState(false);
     const[popUp_Apjbs,setpopUp_Apjbs]=useState(false);
     
+    async function fetchSavedJobs() {
+      const sid=GetUserId("s_userId");
+      console.log("SID of student in jobcard",sid)
+      const response = await axios.get(
+        `http://localhost:3002/savejob/get?sid=${sid}`
+      );
+      sessionStorage.setItem("SavedJobs",JSON.stringify(response.data.savedJobs))
+      console.log("data from saved jobs is",JSON.stringify(response.data.savedJobs));
+      
+      
+    }
+  
     
     
       useEffect(function () {
@@ -24,6 +38,10 @@ function StudentHome() {
           console.log("No cookie");
           navigate("/sauth");
         }
+        else{
+          fetchSavedJobs();
+        }
+        
         
       }, []);
     function toggle_noti(){

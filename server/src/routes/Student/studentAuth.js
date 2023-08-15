@@ -26,6 +26,7 @@ router.post("/register", async function (req, res) {
     district,
     eli_status,
     skills,
+    
   });
   //console.log("The Data of new registered studenst is",newStudent);
   await newStudent.save();
@@ -48,6 +49,7 @@ router.post("/login", async function (req, res) {
     message: "You are successfully logined in",
     token: token,
     userId: student._id,
+    savedJobs:student.savedJobs
   });
 });
 
